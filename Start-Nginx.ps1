@@ -26,12 +26,14 @@ try {
 
     Write-Information "Started nginx" -InformationAction Continue
 
+} catch {
+    Write-Error "Ow!`n$_"
 } finally {
     if ($testContainers) {
         Read-Host "Press enter to dispose"
         Write-Information "Disposing" -InformationAction Continue
 
-        $testContainers.DisposeAsync()
+        $global:result = $testContainers.DisposeAsync()
     } else {
         Write-Information "NOT Disposing" -InformationAction Continue
     }
